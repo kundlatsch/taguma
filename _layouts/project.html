@@ -1,0 +1,50 @@
+---
+layout: default
+---
+<article class="project">
+  <header class="project-header">
+    <h1 class="project-title">{{ page.title }}</h1>
+    {% if page.description %}
+      <p class="project-description">{{ page.description }}</p>
+    {% endif %}
+    
+    <div class="project-meta">
+      {% if page.tech %}
+        <div class="tech-stack">
+          {% for tech in page.tech %}
+            <span class="tech-tag">{{ tech }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+      
+      <div class="project-links">
+        {% if page.github %}
+          <a href="{{ page.github }}" target="_blank" rel="noopener" class="project-link">
+            GitHub
+          </a>
+        {% endif %}
+        {% if page.live %}
+          <a href="{{ page.live }}" target="_blank" rel="noopener" class="project-link primary">
+            Ver Projeto
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+  
+  {% if page.image %}
+    <figure class="project-image">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+    </figure>
+  {% endif %}
+  
+  <div class="project-content prose">
+    {{ content }}
+  </div>
+  
+  <footer class="project-footer">
+    <a href="{{ '/dev' | relative_url }}#portfolio" class="back-link">
+      <span class="arrow">&larr;</span> Voltar ao Portfólio
+    </a>
+  </footer>
+</article>

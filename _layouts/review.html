@@ -1,0 +1,53 @@
+---
+layout: default
+---
+<article class="review">
+  <header class="review-header">
+    <table style="width: 100%; border: 0; border-spacing: 0; border-collapse: collapse;">
+      <tr>
+        <td style="vertical-align: top;">
+          <div class="review-meta">
+            <span class="review-type {{ page.type | default: 'filme' }}">{{ page.type | default: "filme" }}</span>
+            {% if page.rating %}
+              <span class="separator">/</span>
+              <span class="rating">
+                {% for i in (1..5) %}
+                  {% if i <= page.rating %}
+                    <span class="star filled">&#9733;</span>
+                  {% else %}
+                    <span class="star">&#9734;</span>
+                  {% endif %}
+                {% endfor %}
+              </span>
+            {% endif %}
+          </div>
+          <h1 class="review-title">{{ page.title }}</h1>
+          {% if page.creator %}
+            <p class="review-creator">{{ page.creator }}</p>
+          {% endif %}
+          {% if page.year %}
+            <p class="review-year">{{ page.year }}</p>
+          {% endif %}
+        </td>
+        
+        {% if page.cover %}
+          <td style="vertical-align: top; width: 100px; padding-right: 20px; padding-top: 5px;">
+            <figure style="margin: 0;">
+              <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}" style="width: 80px; height: auto; border-radius: 4px;">
+            </figure>
+          </td>
+        {% endif %}
+      </tr>
+    </table>
+  </header>
+  
+  <div class="review-content prose">
+    {{ content }}
+  </div>
+  
+  <footer class="review-footer">
+    <a href="{{ '/reviews' | relative_url }}" class="back-link">
+      <span class="arrow">&larr;</span> Voltar aos Reviews
+    </a>
+  </footer>
+</article>

@@ -1,0 +1,114 @@
+---
+layout: default
+title: Atelie
+description: Meu espaco de desenvolvimento artistico - pintura a oleo, escrita criativa, producao audiovisual e fotografia.
+---
+<section class="page-header">
+  <h1 class="page-title">Atelie</h1>
+  <p class="page-description">{{ page.description }}</p>
+</section>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">Todos</button>
+  <button class="filter-btn" data-filter="pintura">Pintura</button>
+  <button class="filter-btn" data-filter="escrita">Escrita</button>
+  <button class="filter-btn" data-filter="filme">Filmes</button>
+  <button class="filter-btn" data-filter="fotografia">Fotografia</button>
+</div>
+
+{% if site.atelier.size > 0 %}
+  <div class="gallery-grid" id="atelier-grid">
+    {% for work in site.atelier %}
+      <article class="gallery-item" data-type="{{ work.type | default: 'pintura' }}">
+        <a href="{{ work.url | relative_url }}">
+          {% if work.image %}
+            <figure class="gallery-image">
+              <img src="{{ work.image | relative_url }}" alt="{{ work.title }}" loading="lazy">
+            </figure>
+          {% else %}
+            <div class="gallery-placeholder {{ work.type | default: 'pintura' }}">
+              {% if work.type == 'escrita' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                </svg>
+              {% elsif work.type == 'filme' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                  <line x1="7" y1="2" x2="7" y2="22"></line>
+                  <line x1="17" y1="2" x2="17" y2="22"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <line x1="2" y1="7" x2="7" y2="7"></line>
+                  <line x1="2" y1="17" x2="7" y2="17"></line>
+                  <line x1="17" y1="17" x2="22" y2="17"></line>
+                  <line x1="17" y1="7" x2="22" y2="7"></line>
+                </svg>
+              {% elsif work.type == 'fotografia' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                  <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                  <path d="M2 2l7.586 7.586"></path>
+                  <circle cx="11" cy="11" r="2"></circle>
+                </svg>
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          <div class="gallery-info">
+            <span class="gallery-type {{ work.type | default: 'pintura' }}">{{ work.type | default: "pintura" }}</span>
+            <h3 class="gallery-title">
+              <a href="{{ work.url | relative_url }}">{{ work.title }}</a>
+            </h3>
+            {% if work.medium %}
+              <p class="gallery-medium">{{ work.medium }}</p>
+            {% endif %}
+          </div>
+        </a>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state">
+    <p>Nenhum trabalho ainda. Adicione arquivos em <code>_atelier/</code></p>
+  </div>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.gallery-item');
+    
+    // Check URL for filter param
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterParam = urlParams.get('filter');
+    
+    if (filterParam) {
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      const targetBtn = document.querySelector(`[data-filter="${filterParam}"]`);
+      if (targetBtn) targetBtn.classList.add('active');
+      filterItems(filterParam);
+    }
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        filterItems(this.dataset.filter);
+      });
+    });
+    
+    function filterItems(filter) {
+      items.forEach(item => {
+        if (filter === 'all' || item.dataset.type === filter) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>

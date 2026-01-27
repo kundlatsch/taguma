@@ -1,0 +1,96 @@
+---
+layout: default
+title: Home
+---
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-greeting">Olá, eu sou</p>
+    <h1 class="hero-title">{{ site.author.name }}</h1>
+    <p class="hero-subtitle">Também conhecido como Taguma</p>
+    <p class="hero-bio">{{ site.author.bio }}</p>
+    
+    <div class="hero-links">
+      <a href="{{ '/dev' | relative_url }}" class="btn btn-primary">Ver Portfólio</a>
+      <a href="{{ '/blog' | relative_url }}" class="btn btn-outline">Ler Blog</a>
+    </div>
+  </div>
+  
+  <div class="hero-decoration">
+    <div class="decoration-line"></div>
+    <div class="decoration-dot"></div>
+  </div>
+</section>
+
+<section class="home-section">
+  <header class="section-header">
+    <h2 class="section-title">Espaços</h2>
+    <p class="section-subtitle">Explore as diferentes facetas do meu trabalho</p>
+  </header>
+  
+  <div class="spaces-grid">
+    <a href="{{ '/dev' | relative_url }}" class="space-card dev">
+      <div class="space-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+      </div>
+      <h3 class="space-title">Dev</h3>
+      <p class="space-description">Portfólio, blog tech, videoaulas e experiencia profissional</p>
+    </a>
+    
+    <a href="{{ '/atelier' | relative_url }}" class="space-card atelier">
+      <div class="space-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+          <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+          <path d="M2 2l7.586 7.586"></path>
+          <circle cx="11" cy="11" r="2"></circle>
+        </svg>
+      </div>
+      <h3 class="space-title">Ateliê</h3>
+      <p class="space-description">Minha expressão de todas as artes</p>
+    </a>
+    
+    <a href="{{ '/reviews' | relative_url }}" class="space-card reviews">
+      <div class="space-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      </div>
+      <h3 class="space-title">Reviews</h3>
+      <p class="space-description">Análises pretenciosas das minhas mídias favoritas</p>
+    </a>
+    
+    <a href="{{ '/blog' | relative_url }}" class="space-card blog">
+      <div class="space-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+        </svg>
+      </div>
+      <h3 class="space-title">Blog</h3>
+      <p class="space-description">Pensamentos, reflexões e textos pessoais</p>
+    </a>
+  </div>
+</section>
+
+{% if site.posts.size > 0 %}
+<section class="home-section">
+  <header class="section-header">
+    <h2 class="section-title">Últimas Publicações</h2>
+    <a href="{{ '/blog' | relative_url }}" class="section-link">Ver mais &rarr;</a>
+  </header>
+  
+  <div class="posts-grid">
+    {% for post in site.posts limit:3 %}
+      {% include card.html 
+        title=post.title 
+        description=post.excerpt 
+        date=post.date 
+        url=post.url 
+        tags=post.tags
+      %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

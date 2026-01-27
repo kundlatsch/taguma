@@ -1,0 +1,51 @@
+<article class="card {{ include.class }}">
+  {% if include.image %}
+    <figure class="card-image">
+      <img src="{{ include.image | relative_url }}" alt="{{ include.title }}" loading="lazy">
+    </figure>
+  {% endif %}
+  
+  <div class="card-content">
+    {% if include.type %}
+      <span class="card-type {{ include.type }}">{{ include.type }}</span>
+    {% endif %}
+    
+    {% if include.date %}
+      <time class="card-date" datetime="{{ include.date | date_to_xmlschema }}">
+        {{ include.date | date: "%d %b %Y" }}
+      </time>
+    {% endif %}
+    
+    <h3 class="card-title">
+      {% if include.url %}
+        <a href="{{ include.url | relative_url }}">{{ include.title }}</a>
+      {% else %}
+        {{ include.title }}
+      {% endif %}
+    </h3>
+    
+    {% if include.description %}
+      <p class="card-description">{{ include.description }}</p>
+    {% endif %}
+    
+    {% if include.tags %}
+      <div class="card-tags">
+        {% for tag in include.tags %}
+          <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+    
+    {% if include.rating %}
+      <div class="card-rating">
+        {% for i in (1..5) %}
+          {% if i <= include.rating %}
+            <span class="star filled">&#9733;</span>
+          {% else %}
+            <span class="star">&#9734;</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</article>

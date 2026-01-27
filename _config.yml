@@ -1,0 +1,78 @@
+# Site Settings
+title: "Taguma"
+description: "Desenvolvedor, Artista, Entusiasta"
+baseurl: "/taguma"
+url: "https://kundlatsch.github.io"
+
+# Author
+author:
+  name: "Gustavo Kundlatsch"
+  email: "gustavo.kundlatsch@gmail.com"
+  bio: "Artesão do código, artista polivalente e polímata."
+
+# Social Links
+social:
+  github: "kundlatsch"
+  youtube: "Tagumando"
+  linkedin: "kundlatsch"
+
+# Build Settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:title/
+
+# Collections
+collections:
+  portfolio:
+    output: true
+    permalink: /dev/portfolio/:name/
+  tech:
+    output: true
+    permalink: /dev/:name/
+  atelier:
+    output: true
+    permalink: /atelier/:name/
+  reviews:
+    output: true
+    permalink: /reviews/:name/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "portfolio"
+    values:
+      layout: "project"
+  - scope:
+      path: ""
+      type: "tech"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "atelier"
+    values:
+      layout: "artwork"
+  - scope:
+      path: ""
+      type: "reviews"
+    values:
+      layout: "review"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

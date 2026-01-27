@@ -1,0 +1,36 @@
+---
+layout: default
+---
+<article class="artwork">
+  <header class="artwork-header">
+    <div class="artwork-meta">
+      <span class="artwork-type {{ page.type | default: 'pintura' }}">{{ page.type | default: "pintura" }}</span>
+      {% if page.date %}
+        <span class="separator">/</span>
+        <time datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%Y" }}
+        </time>
+      {% endif %}
+    </div>
+    <h1 class="artwork-title">{{ page.title }}</h1>
+    {% if page.medium %}
+      <p class="artwork-medium">{{ page.medium }}</p>
+    {% endif %}
+  </header>
+  
+  {% if page.image %}
+    <figure class="artwork-image">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+    </figure>
+  {% endif %}
+  
+  <div class="artwork-content prose">
+    {{ content }}
+  </div>
+  
+  <footer class="artwork-footer">
+    <a href="{{ '/atelier' | relative_url }}" class="back-link">
+      <span class="arrow">&larr;</span> Voltar ao Atelie
+    </a>
+  </footer>
+</article>

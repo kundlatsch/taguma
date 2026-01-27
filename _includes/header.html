@@ -1,0 +1,60 @@
+<header class="site-header">
+  <nav class="nav-container">
+    <a href="{{ '/' | relative_url }}" class="site-logo">
+      <span class="logo-text">{{ site.title | split: ' ' | first | slice: 0 }}</span>
+    </a>
+    
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+    
+    <ul class="nav-menu">
+      <li class="nav-item {% if page.url == '/' %}active{% endif %}">
+        <a href="{{ '/' | relative_url }}">Home</a>
+      </li>
+      <li class="nav-item has-dropdown {% if page.url contains '/dev' %}active{% endif %}">
+        <a href="{{ '/dev' | relative_url }}">Dev</a>
+        <ul class="dropdown">
+          <li><a href="{{ '/dev' | relative_url }}#portfolio">Portfolio</a></li>
+          <li><a href="{{ '/dev' | relative_url }}#tech">Blog Tech</a></li>
+          <li><a href="{{ '/dev' | relative_url }}#youtube">YouTube</a></li>
+          <li><a href="{{ '/dev' | relative_url }}#resume">Currículo</a></li>
+        </ul>
+      </li>
+      <li class="nav-item has-dropdown {% if page.url contains '/atelier' %}active{% endif %}">
+        <a href="{{ '/atelier' | relative_url }}">Ateliê</a>
+        <ul class="dropdown">
+          <li><a href="{{ '/atelier' | relative_url }}?filter=pintura">Pintura</a></li>
+          <li><a href="{{ '/atelier' | relative_url }}?filter=escrita">Escrita</a></li>
+          <li><a href="{{ '/atelier' | relative_url }}?filter=filme">Filmes</a></li>
+          <li><a href="{{ '/atelier' | relative_url }}?filter=fotografia">Fotografia</a></li>
+        </ul>
+      </li>
+      <li class="nav-item has-dropdown {% if page.url contains '/reviews' %}active{% endif %}">
+        <a href="{{ '/reviews' | relative_url }}">Reviews</a>
+        <ul class="dropdown">
+          <li><a href="{{ '/reviews' | relative_url }}?filter=filme">Filmes</a></li>
+          <li><a href="{{ '/reviews' | relative_url }}?filter=livro">Livros</a></li>
+          <li><a href="{{ '/reviews' | relative_url }}?filter=manga">Mangás</a></li>
+          <li><a href="{{ '/reviews' | relative_url }}?filter=anime">Animes</a></li>
+        </ul>
+      </li>
+      <li class="nav-item {% if page.url contains '/blog' %}active{% endif %}">
+        <a href="{{ '/blog' | relative_url }}">Blog</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.querySelector('.nav-toggle');
+    const menu = document.querySelector('.nav-menu');
+    
+    toggle.addEventListener('click', function() {
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !expanded);
+      menu.classList.toggle('is-open');
+    });
+  });
+</script>

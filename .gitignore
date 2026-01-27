@@ -1,0 +1,12 @@
+# Basic Jekyll ignores
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler ignores
+.bundle/
+vendor/
+
+# macOS ignores
+**/.DS_Store

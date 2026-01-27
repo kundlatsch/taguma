@@ -1,0 +1,124 @@
+---
+layout: default
+title: Reviews
+description: Análises e resenhas de filmes, livros, mangás e animes.
+---
+<section class="page-header">
+  <h1 class="page-title">Reviews</h1>
+  <p class="page-description">{{ page.description }}</p>
+</section>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">Todos</button>
+  <button class="filter-btn" data-filter="filme">Filmes</button>
+  <button class="filter-btn" data-filter="livro">Livros</button>
+  <button class="filter-btn" data-filter="manga">Mangas</button>
+  <button class="filter-btn" data-filter="anime">Animes</button>
+</div>
+
+{% if site.reviews.size > 0 %}
+  <div class="reviews-grid" id="reviews-grid">
+    {% for review in site.reviews %}
+      <article class="review-card" data-type="{{ review.type | default: 'filme' }}">
+        <a href="{{ review.url | relative_url }}">
+          {% if review.cover %}
+            <figure class="review-cover">
+              <img src="{{ review.cover | relative_url }}" alt="{{ review.title }}" loading="lazy">
+            </figure>
+          {% else %}
+            <div class="review-placeholder {{ review.type | default: 'filme' }}">
+              {% if review.type == 'livro' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              {% elsif review.type == 'manga' or review.type == 'anime' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                  <line x1="7" y1="2" x2="7" y2="22"></line>
+                  <line x1="17" y1="2" x2="17" y2="22"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          <div class="review-info">
+            <span class="review-type {{ review.type | default: 'filme' }}">{{ review.type | default: "filme" }}</span>
+            
+            {% if review.rating %}
+              <div class="review-rating">
+                {% for i in (1..5) %}
+                  {% if i <= review.rating %}
+                    <span class="star filled">&#9733;</span>
+                  {% else %}
+                    <span class="star">&#9734;</span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+            
+            <h3 class="review-title">
+              <a href="{{ review.url | relative_url }}">{{ review.title }}</a>
+            </h3>
+            
+            {% if review.creator %}
+              <p class="review-creator">{{ review.creator }}</p>
+            {% endif %}
+            
+            {% if review.year %}
+              <p class="review-year">{{ review.year }}</p>
+            {% endif %}
+          </div>
+        </a>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state">
+    <p>Nenhum review ainda. Adicione arquivos em <code>_reviews/</code></p>
+  </div>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.review-card');
+    
+    // Check URL for filter param
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterParam = urlParams.get('filter');
+    
+    if (filterParam) {
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      const targetBtn = document.querySelector(`[data-filter="${filterParam}"]`);
+      if (targetBtn) targetBtn.classList.add('active');
+      filterItems(filterParam);
+    }
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        filterItems(this.dataset.filter);
+      });
+    });
+    
+    function filterItems(filter) {
+      items.forEach(item => {
+        if (filter === 'all' || item.dataset.type === filter) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>

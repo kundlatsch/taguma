@@ -1,0 +1,313 @@
+---
+layout: default
+title: Dev
+description: Portfolio de desenvolvimento, blog tech, aulas de programacao e experiencia profissional.
+---
+<section class="page-header">
+  <h1 class="page-title">Dev</h1>
+  <p class="page-description">{{ page.description }}</p>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="dev-section">
+  <header class="section-header">
+    <h2 class="section-title">Portfólio</h2>
+    <p class="section-subtitle">Projetos selecionados</p>
+  </header>
+  
+  {% if site.portfolio.size > 0 %}
+    <div class="projects-grid">
+      {% for project in site.portfolio %}
+        {% include card.html 
+          title=project.title 
+          description=project.description 
+          image=project.image 
+          url=project.url 
+          tags=project.tech
+          class="project-card"
+        %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <p>Nenhum projeto ainda. Adicione arquivos em <code>_portfolio/</code></p>
+    </div>
+  {% endif %}
+</section>
+
+<!-- Tech Blog Section -->
+<section id="tech" class="dev-section">
+  <header class="section-header">
+    <h2 class="section-title">Blog Tech</h2>
+    <p class="section-subtitle">Artigos sobre desenvolvimento</p>
+  </header>
+  
+  {% if site.tech.size > 0 %}
+    <div class="posts-grid">
+      {% for post in site.tech %}
+        {% include card.html 
+          title=post.title 
+          description=post.description 
+          date=post.date 
+          url=post.url 
+          tags=post.tags
+        %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <p>Nenhum post ainda. Adicione arquivos em <code>_tech/</code></p>
+    </div>
+  {% endif %}
+</section>
+
+<!-- YouTube Section -->
+<section id="youtube" class="dev-section">
+  <header class="section-header">
+    <h2 class="section-title">YouTube</h2>
+    <p class="section-subtitle">Aulas de programacao</p>
+  </header>
+  
+  <div class="youtube-content">
+    <div class="youtube-info">
+      <p>Acompanhe minhas aulas e tutoriais de programacao no YouTube.</p>
+      {% if site.social.youtube %}
+        <a href="https://youtube.com/@{{ site.social.youtube }}" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          Ver Canal
+        </a>
+      {% endif %}
+    </div>
+    
+    <div class="youtube-placeholder">
+      <div class="video-grid">
+        <a
+          href="https://youtu.be/aA7K9MzK-R8?si=AR7CZgdz10onBe67"
+          class="video-placeholder"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="{{ site.baseurl }}/assets/images/youtube/masterclass.jpg"
+            alt="Assistir vídeo"
+            loading="lazy"
+          />
+
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+        </a>
+        <a
+          href="https://youtu.be/sQJOQ_3zuJs"
+          class="video-placeholder"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="{{ site.baseurl }}/assets/images/youtube/leetcode.png"
+            alt="Assistir vídeo"
+            loading="lazy"
+          />
+
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+        </a>
+        <a
+          href="https://youtu.be/9xhgR0RYq6A"
+          class="video-placeholder"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="{{ site.baseurl }}/assets/images/youtube/busca.png"
+            alt="Assistir vídeo"
+            loading="lazy"
+          />
+
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Resume Section -->
+<!-- Resume Section -->
+<section id="resume" class="dev-section">
+  <header class="section-header">
+    <h2 class="section-title">Currículo</h2>
+    <p class="section-subtitle">Experiência profissional</p>
+  </header>
+
+  <div class="resume-content">
+    <!-- Experience -->
+    <div class="resume-section">
+      <h3 class="resume-heading">Experiência</h3>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4 class="timeline-title">
+              Senior Backend Engineer / Codurance (Epic Games)
+            </h4>
+            <p class="timeline-period">Jan 2026 – Presente</p>
+            <p class="timeline-description">
+              Atuação no desenvolvimento e manutenção do backend do Fab,
+              marketplace de assets da Epic Games, com foco em microsserviços
+              escaláveis e sistemas de alto tráfego.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4 class="timeline-title">
+              Backend Engineer / Lean Tech (Cloudtrucks)
+            </h4>
+            <p class="timeline-period">Jan 2025 – Out 2025</p>
+            <p class="timeline-description">
+              Desenvolvimento e manutenção de integrações com grandes
+              plataformas de intermediação de frete, como Uber e
+              C.H. Robinson. Manutenção e evolução de uma base de código
+              em Django, além da execução de testes de qualidade para
+              garantir a confiabilidade do sistema.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4 class="timeline-title">
+              Software Engineer / Outlier
+            </h4>
+            <p class="timeline-period">Jul 2024 – Dez 2024</p>
+            <p class="timeline-description">
+              Participação em projetos de IA voltados ao treinamento de
+              grandes modelos de linguagem (LLMs), realizando análise e
+              validação de dados para garantir alta precisão e desempenho
+              dos modelos.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4 class="timeline-title">
+              Senior Developer / Turivius
+            </h4>
+            <p class="timeline-period">Nov 2023 – Jun 2024</p>
+            <p class="timeline-description">
+              Liderança de equipe full-stack de desenvolvimento web,
+              colaboração direta com times de vendas e marketing e
+              desenvolvimento de um sistema de restrição de compartilhamento
+              de senhas inspirado na Netflix. Atuação em front-end e
+              back-end com foco em performance e manutenibilidade.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4 class="timeline-title">
+              Backend Developer / Turivius
+            </h4>
+            <p class="timeline-period">Jan 2022 – Out 2023</p>
+            <p class="timeline-description">
+              Desenvolvimento de APIs em microsserviços utilizando Flask
+              e Django, com deploy na AWS (Lambda, EC2, S3). Projeto e
+              implementação de soluções de banco de dados relacionais
+              e não relacionais, além da reestruturação do processo
+              de SCRUM.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h4 class="timeline-title">
+              Full-stack Developer / Laboratório Bridge
+            </h4>
+            <p class="timeline-period">Out 2020 – Dez 2021</p>
+            <p class="timeline-description">
+              Atuação no sistema de prontuário eletrônico e-SUS APS,
+              utilizado por mais de 80% dos municípios brasileiros.
+              Correção de bugs em front-end (React.js) e back-end
+              (Spring Boot), otimização de bancos PostgreSQL e uso de
+              Docker para melhoria do fluxo de desenvolvimento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="resume-section">
+      <h3 class="resume-heading">Competências</h3>
+
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h4>Linguagens</h4>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>Java</li>
+            <li>JavaScript</li>
+            <li>TypeScript</li>
+          </ul>
+        </div>
+
+        <div class="skill-category">
+          <h4>Frameworks</h4>
+          <ul class="skill-list">
+            <li>Flask</li>
+            <li>Django</li>
+            <li>Spring Boot</li>
+            <li>React.js</li>
+          </ul>
+        </div>
+
+        <div class="skill-category">
+          <h4>Bancos de Dados & Cloud</h4>
+          <ul class="skill-list">
+            <li>PostgreSQL</li>
+            <li>MongoDB</li>
+            <li>OpenSearch</li>
+            <li>AWS / Azure</li>
+          </ul>
+        </div>
+
+        <div class="skill-category">
+          <h4>Ferramentas & Práticas</h4>
+          <ul class="skill-list">
+            <li>Docker</li>
+            <li>Git</li>
+            <li>SCRUM / Agile</li>
+            <li>LaTeX</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="resume-actions">
+      <a href="{{ site.baseurl }}/assets/documents/resume.pdf" class="btn btn-outline" download>
+        Baixar PDF
+      </a>
+    </div>
+  </div>
+</section>

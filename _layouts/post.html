@@ -1,0 +1,45 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%d %b %Y" }}
+      </time>
+      {% if page.categories.size > 0 %}
+        <span class="separator">/</span>
+        <span class="category">{{ page.categories | first }}</span>
+      {% endif %}
+    </div>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.description %}
+      <p class="post-description">{{ page.description }}</p>
+    {% endif %}
+    {% if page.tags.size > 0 %}
+      <div class="post-tags">
+        {% for tag in page.tags %}
+          <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+  
+  <div class="post-content prose">
+    {{ content }}
+  </div>
+  
+  <footer class="post-footer">
+    {% if page.collection == 'tech' or page.collection == 'portfolio' %}
+      {% assign back_url = '/dev/#tech' %}
+    {% elsif page.collection == 'posts' %}
+      {% assign back_url = '/blog/' %}
+    {% else %}
+      {% assign back_url = '/' | append: page.collection | append: '/' %}
+    {% endif %}
+
+    <a href="{{ back_url | relative_url }}" class="back-link">
+      <span class="arrow">&larr;</span> Voltar
+    </a>
+  </footer>
+</article>
