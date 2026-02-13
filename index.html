@@ -85,7 +85,7 @@ title: Home
     {% for post in site.posts limit:3 %}
       {% include card.html 
         title=post.title 
-        description=post.excerpt 
+        description=post.description 
         date=post.date 
         url=post.url 
         tags=post.tags
