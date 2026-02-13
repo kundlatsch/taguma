@@ -1,6 +1,8 @@
 /* ========================================
    PERSONAL SITE - Dark Retro Theme
    ======================================== */
+  
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap');
 
 /* CSS Variables - Dark Theme with Retro Accents */
 :root {
@@ -31,7 +33,7 @@
   --color-anime: #ff7675;
   
   /* Typography */
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-serif: 'Funnel Display', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   
   /* Spacing */
@@ -70,7 +72,7 @@ html {
 
 body {
   font-family: var(--font-serif);
-  font-weight: 800;
+  /* font-weight: 800; */
   overflow-x: hidden;
   font-size: 1.125rem;
   line-height: 1.7;
@@ -341,7 +343,7 @@ code {
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 600;
   line-height: 1.1;
   margin-bottom: var(--space-md);
