@@ -1,7 +1,7 @@
 ---
 title: "B2B/C Protocol"
 description: "A small educational, text-based protocol for simulating communication between entities."
-tech: [Python]
+tech: [Python, streamlit]
 github: "https://github.com/kundlatsch/b2bc"
 live: "https://carcule.streamlit.app/"
 image: /assets/images/portfolio/carcule.jpeg
