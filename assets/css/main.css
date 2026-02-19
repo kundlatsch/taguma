@@ -446,7 +446,6 @@ code {
 .home-section,
 .dev-section {
   padding: var(--space-3xl) 0;
-  border-top: 1px solid var(--border-color);
 }
 
 .section-header {
