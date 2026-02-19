@@ -552,6 +552,23 @@ code {
   gap: var(--space-lg);
 }
 
+.projects-carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+}
+
+.projects-track {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.project-card {
+  flex: 0 0 300px; /* card width */
+  scroll-snap-align: start;
+}
+
+
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1449,4 +1466,44 @@ code {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ===== Custom Scrollbar - Retro Neon ===== */
+
+/* WebKit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  height: 10px;   /* horizontal */
+  width: 10px;    /* vertical */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  border-radius: var(--radius-md);
+  border: 2px solid var(--bg-secondary);
+  box-shadow: 0 0 8px var(--accent-glow);
+  transition: var(--transition-normal);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+  box-shadow: 0 0 12px var(--accent-primary);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg-secondary);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-primary) var(--bg-secondary);
 }
