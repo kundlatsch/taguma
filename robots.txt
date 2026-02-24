@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://taguma.blog/sitemap.xml
