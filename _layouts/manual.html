@@ -44,8 +44,11 @@
     <button class="manual-hamburger" id="manual-hamburger" aria-label="Abrir menu">
       <span></span><span></span><span></span>
     </button>
-    <a href="{{ '/backend-manual/' | relative_url }}" class="manual-topbar-title">Manual de Backend</a>
-    <a href="{{ '/' | relative_url }}" class="manual-topbar-home" title="Voltar ao site">↗</a>
+    <div class="manual-topbar-title">
+      <a href="{{ '/' | relative_url }}" class="manual-topbar-site">taguma.blog</a>
+      <span class="manual-topbar-sep">|</span>
+      <a href="{{ '/backend-manual/' | relative_url }}" class="manual-topbar-manual">Manual de Backend</a>
+    </div>
   </header>
 
   <!-- Overlay for mobile sidebar -->
