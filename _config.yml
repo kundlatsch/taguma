@@ -35,6 +35,9 @@ collections:
   reviews:
     output: true
     permalink: /reviews/:name/
+  manual_backend:
+    output: true
+    permalink: /backend-manual/:name/
 
 # Default front matter
 defaults:
@@ -63,6 +66,11 @@ defaults:
       type: "reviews"
     values:
       layout: "review"
+  - scope:
+      path: ""
+      type: "manual_backend"
+    values:
+      layout: "manual"
 
 # Plugins
 plugins:

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}Manual de Backend | {{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
+
+  {% seo %}
+</head>
+<body class="manual-body">
+
+  {% assign chapters = site.manual_backend | sort: "chapter" %}
+
+  <!-- Prev/Next logic -->
+  {% assign cidx = nil %}
+  {% for ch in chapters %}
+    {% if ch.url == page.url %}{% assign cidx = forloop.index0 %}{% endif %}
+  {% endfor %}
+  {% assign prev_chapter = nil %}
+  {% assign next_chapter = nil %}
+  {% if cidx and cidx > 0 %}
+    {% assign prev_idx = cidx | minus: 1 %}
+    {% assign prev_chapter = chapters[prev_idx] %}
+  {% endif %}
+  {% assign nidx = cidx | plus: 1 %}
+  {% if nidx < chapters.size %}
+    {% assign next_chapter = chapters[nidx] %}
+  {% endif %}
+
+  <!-- Top Bar -->
+  <header class="manual-topbar">
+    <button class="manual-hamburger" id="manual-hamburger" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="{{ '/backend-manual/' | relative_url }}" class="manual-topbar-title">Manual de Backend</a>
+    <a href="{{ '/' | relative_url }}" class="manual-topbar-home" title="Voltar ao site">↗</a>
+  </header>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="manual-overlay" id="manual-overlay"></div>
+
+  <!-- Shell -->
+  <div class="manual-shell">
+
+    <!-- Sidebar -->
+    <nav class="manual-sidebar" id="manual-sidebar" aria-label="Navegação do manual">
+      <ul class="manual-nav-list">
+        {% assign current_part = nil %}
+        {% for ch in chapters %}
+          {% if ch.part and ch.part != current_part %}
+            {% assign current_part = ch.part %}
+            <li class="manual-nav-part">{{ ch.part }}</li>
+          {% endif %}
+          <li>
+            <a href="{{ ch.url | relative_url }}"
+               class="manual-nav-item{% if ch.url == page.url %} is-active{% endif %}">
+              {% if ch.chapter > 0 %}<span class="manual-nav-num">{{ ch.chapter }}.</span>{% endif %}
+              {{ ch.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <!-- Content -->
+    <main class="manual-content" id="main-content">
+      <article>
+        <header class="manual-article-header">
+          {% if page.part %}<span class="manual-article-part">{{ page.part }}</span>{% endif %}
+          <h1 class="manual-article-title">{{ page.title }}</h1>
+          {% if page.description %}<p class="manual-article-desc">{{ page.description }}</p>{% endif %}
+        </header>
+
+        <div class="manual-article-body">
+          {{ content }}
+        </div>
+
+        <!-- Prev / Next -->
+        <nav class="manual-chapter-nav" aria-label="Navegação entre capítulos">
+          <div class="manual-chapter-nav-prev">
+            {% if prev_chapter %}
+              <a href="{{ prev_chapter.url | relative_url }}" class="manual-chapter-btn">
+                <span class="manual-chapter-btn-dir">← Anterior</span>
+                <span class="manual-chapter-btn-name">{{ prev_chapter.title }}</span>
+              </a>
+            {% endif %}
+          </div>
+          <div class="manual-chapter-nav-next">
+            {% if next_chapter %}
+              <a href="{{ next_chapter.url | relative_url }}" class="manual-chapter-btn manual-chapter-btn--next">
+                <span class="manual-chapter-btn-dir">Próximo →</span>
+                <span class="manual-chapter-btn-name">{{ next_chapter.title }}</span>
+              </a>
+            {% endif %}
+          </div>
+        </nav>
+      </article>
+    </main>
+
+  </div><!-- /.manual-shell -->
+
+  <script>
+    (function () {
+      var hamburger = document.getElementById('manual-hamburger');
+      var sidebar   = document.getElementById('manual-sidebar');
+      var overlay   = document.getElementById('manual-overlay');
+
+      function openSidebar() {
+        sidebar.classList.add('is-open');
+        overlay.classList.add('is-visible');
+        hamburger.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove('is-open');
+        overlay.classList.remove('is-visible');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+
+      hamburger.addEventListener('click', function () {
+        sidebar.classList.contains('is-open') ? closeSidebar() : openSidebar();
+      });
+
+      overlay.addEventListener('click', closeSidebar);
+    })();
+  </script>
+
+</body>
+</html>
