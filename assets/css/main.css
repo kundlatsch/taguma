@@ -1545,27 +1545,22 @@ code {
 }
 
 .manual-topbar-site {
-  color: var(--accent-primary);
-  text-decoration: none;
-  transition: var(--transition-fast);
-}
-
-.manual-topbar-site:hover {
-  opacity: 0.8;
-}
-
-.manual-topbar-sep {
-  color: var(--border-color);
-}
-
-.manual-topbar-manual {
   color: var(--text-primary);
   text-decoration: none;
   transition: var(--transition-fast);
 }
 
-.manual-topbar-manual:hover {
+.manual-topbar-site:hover {
   color: var(--accent-primary);
+}
+
+.manual-topbar-sep {
+  color: var(--text-secondary);
+}
+
+.manual-topbar-manual {
+  color: var(--accent-primary);
+  text-decoration: none;
 }
 
 .manual-hamburger {
