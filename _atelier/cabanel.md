@@ -1,4 +1,5 @@
 ---
+layout: painting
 title: "Reprodução: Anjo Caído de Cabanel"
 type: pintura
 medium: "Óleo sobre tela, 30x40cm"

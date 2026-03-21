@@ -11,9 +11,10 @@ description: Meu espaco de desenvolvimento artistico - pintura a oleo, escrita c
 <div class="filter-bar">
   <button class="filter-btn active" data-filter="all">Todos</button>
   <button class="filter-btn" data-filter="pintura">Pintura</button>
-  <!-- <button class="filter-btn" data-filter="escrita">Escrita</button>
-  <button class="filter-btn" data-filter="filme">Audiovisual</button> -->
+  <button class="filter-btn" data-filter="literatura">Literatura</button>
+  <!-- <button class="filter-btn" data-filter="filme">Audiovisual</button> -->
   <button class="filter-btn" data-filter="musica">Música</button>
+  <button class="filter-btn" data-filter="fotografia">Fotografia</button>
 </div>
 
 {% if site.atelier.size > 0 %}
@@ -21,13 +22,14 @@ description: Meu espaco de desenvolvimento artistico - pintura a oleo, escrita c
     {% for work in site.atelier %}
       <article class="gallery-item" data-type="{{ work.type | default: 'pintura' }}">
         <a href="{{ work.url | relative_url }}">
-          {% if work.image %}
+          {% assign thumb = work.image | default: work.cover %}
+          {% if thumb %}
             <figure class="gallery-image">
-              <img src="{{ work.image | relative_url }}" alt="{{ work.title }}" loading="lazy">
+              <img src="{{ thumb | relative_url }}" alt="{{ work.title }}" loading="lazy">
             </figure>
           {% else %}
             <div class="gallery-placeholder {{ work.type | default: 'pintura' }}">
-              {% if work.type == 'escrita' %}
+              {% if work.type == 'literatura' %}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                 </svg>
@@ -41,6 +43,12 @@ description: Meu espaco de desenvolvimento artistico - pintura a oleo, escrita c
                   <line x1="2" y1="17" x2="7" y2="17"></line>
                   <line x1="17" y1="17" x2="22" y2="17"></line>
                   <line x1="17" y1="7" x2="22" y2="7"></line>
+                </svg>
+              {% elsif work.type == 'musica' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
                 </svg>
               {% elsif work.type == 'fotografia' %}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">

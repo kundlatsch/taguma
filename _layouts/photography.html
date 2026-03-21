@@ -1,0 +1,116 @@
+---
+layout: default
+---
+<article class="photography">
+  <header class="artwork-header">
+    <div class="artwork-meta">
+      <span class="artwork-type fotografia">fotografia</span>
+      {% if page.date %}
+        <span class="separator">/</span>
+        <time datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%Y" }}
+        </time>
+      {% endif %}
+    </div>
+    <h1 class="artwork-title">{{ page.title }}</h1>
+    {% if page.medium %}
+      <p class="artwork-medium">{{ page.medium }}</p>
+    {% endif %}
+  </header>
+
+  {% if page.images %}
+    <div class="photo-strip" id="photo-strip">
+      {% for img in page.images %}
+        <div class="photo-thumb" data-index="{{ forloop.index0 }}" tabindex="0" role="button" aria-label="Abrir foto {{ forloop.index }}">
+          <img src="{{ img | relative_url }}" alt="{{ page.title }} — foto {{ forloop.index }}" loading="lazy">
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="artwork-content prose">
+    {{ content }}
+  </div>
+
+  <footer class="artwork-footer">
+    <a href="{{ '/atelier' | relative_url }}" class="back-link">
+      <span class="arrow">&larr;</span> Voltar ao Atelie
+    </a>
+  </footer>
+</article>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualizador de fotos" hidden>
+  <button class="lightbox-close" id="lightbox-close" aria-label="Fechar">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Foto anterior">&#8249;</button>
+  <div class="lightbox-img-wrap">
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  </div>
+  <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Próxima foto">&#8250;</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+
+<script>
+(function () {
+  var images = [
+    {% for img in page.images %}
+      "{{ img | relative_url }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  if (!images.length) return;
+
+  var lightbox   = document.getElementById('lightbox');
+  var lbImg      = document.getElementById('lightbox-img');
+  var lbCounter  = document.getElementById('lightbox-counter');
+  var lbPrev     = document.getElementById('lightbox-prev');
+  var lbNext     = document.getElementById('lightbox-next');
+  var lbClose    = document.getElementById('lightbox-close');
+  var current    = 0;
+
+  function open(index) {
+    current = ((index % images.length) + images.length) % images.length;
+    lbImg.src = images[current];
+    lbImg.alt = "Foto " + (current + 1);
+    lbCounter.textContent = (current + 1) + ' / ' + images.length;
+    lbPrev.style.display = images.length > 1 ? '' : 'none';
+    lbNext.style.display = images.length > 1 ? '' : 'none';
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function close() {
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  function prev() { open(current - 1); }
+  function next() { open(current + 1); }
+
+  // Thumbs
+  document.querySelectorAll('.photo-thumb').forEach(function (thumb) {
+    thumb.addEventListener('click', function () { open(parseInt(this.dataset.index, 10)); });
+    thumb.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(parseInt(this.dataset.index, 10)); }
+    });
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+
+  // Click outside image closes
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox || e.target === document.querySelector('.lightbox-img-wrap')) close();
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', function (e) {
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'ArrowRight') next();
+  });
+})();
+</script>

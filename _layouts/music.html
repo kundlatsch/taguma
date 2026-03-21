@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<article class="music">
+  <header class="artwork-header">
+    <div class="artwork-meta">
+      <span class="artwork-type musica">música</span>
+      {% if page.date %}
+        <span class="separator">/</span>
+        <time datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%Y" }}
+        </time>
+      {% endif %}
+    </div>
+    <h1 class="artwork-title">{{ page.title }}</h1>
+    {% if page.medium %}
+      <p class="artwork-medium">{{ page.medium }}</p>
+    {% endif %}
+  </header>
+
+  <div class="music-content artwork-content prose">
+    {{ content }}
+  </div>
+
+  <footer class="artwork-footer">
+    <a href="{{ '/atelier' | relative_url }}" class="back-link">
+      <span class="arrow">&larr;</span> Voltar ao Atelie
+    </a>
+  </footer>
+</article>

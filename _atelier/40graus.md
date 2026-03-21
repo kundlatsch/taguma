@@ -1,4 +1,5 @@
 ---
+layout: music
 title: "40graus"
 type: musica
 medium: "Faixa digital, produção eletrônica"

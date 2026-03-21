@@ -1,0 +1,100 @@
+---
+layout: default
+---
+<article class="painting">
+  <header class="artwork-header">
+    <div class="artwork-meta">
+      <span class="artwork-type pintura">pintura</span>
+      {% if page.date %}
+        <span class="separator">/</span>
+        <time datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%Y" }}
+        </time>
+      {% endif %}
+    </div>
+    <h1 class="artwork-title">{{ page.title }}</h1>
+    {% if page.medium %}
+      <p class="artwork-medium">{{ page.medium }}</p>
+    {% endif %}
+  </header>
+
+  {% if page.image %}
+    <figure class="painting-figure" id="painting-figure">
+      <img
+        class="painting-img"
+        id="painting-img"
+        src="{{ page.image | relative_url }}"
+        alt="{{ page.title }}"
+        loading="lazy"
+        tabindex="0"
+        role="button"
+        aria-label="Ampliar imagem"
+      >
+      <figcaption class="painting-caption">Clique para ampliar</figcaption>
+    </figure>
+  {% endif %}
+
+  <div class="painting-content artwork-content prose">
+    {{ content }}
+  </div>
+
+  <footer class="artwork-footer">
+    <a href="{{ '/atelier' | relative_url }}" class="back-link">
+      <span class="arrow">&larr;</span> Voltar ao Atelie
+    </a>
+  </footer>
+</article>
+
+{% if page.image %}
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização da pintura" hidden>
+  <button class="lightbox-close" id="lightbox-close" aria-label="Fechar">&times;</button>
+  <div class="lightbox-img-wrap" id="lightbox-wrap">
+    <img
+      class="lightbox-img"
+      id="lightbox-img"
+      src="{{ page.image | relative_url }}"
+      alt="{{ page.title }}"
+    >
+  </div>
+</div>
+
+<script>
+(function () {
+  var lightbox = document.getElementById('lightbox');
+  var lbClose  = document.getElementById('lightbox-close');
+  var thumb    = document.getElementById('painting-img');
+
+  function open() {
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function close() {
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
+    thumb.focus();
+  }
+
+  thumb.addEventListener('click', open);
+  thumb.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+  });
+
+  lbClose.addEventListener('click', close);
+
+  document.getElementById('lightbox-wrap').addEventListener('click', function (e) {
+    if (e.target === this) close();
+  });
+
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === this) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!lightbox.hidden && e.key === 'Escape') close();
+  });
+})();
+</script>
+{% endif %}
