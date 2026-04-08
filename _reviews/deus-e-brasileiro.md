@@ -24,3 +24,5 @@ O texto do filme é muito competente. Consegue antecipar conceitos importantes p
 É um filme divertido, com diversos momentos que arrancam boas risadas, bem como cenas bastante impactantes ao retratar a realidade dura das regiões pelas quais os protagonistas passam. Em geral, a obra peca um pouco ao tentar inserir alguns elementos religiosos, como a Sarça Ardente; ou me falta repertório religioso para compreender melhor o significado da cena, ou há, de fato, uma fragilidade no roteiro.
 
 Como último elogio, vale ressaltar que este é um filme brasileiro com cara de filme brasileiro. Os diálogos e enquadramentos frequentemente remetem ao teatro, no melhor sentido possível. Se você é fã do elenco ou aprecia cinema nacional, Deus é Brasileiro é uma ótima pedida, com continuação prevista para ainda este ano (2026).
+
+[Review disponível também no meu Letterboxd](https://letterboxd.com/taguma/film/god-is-brazilian/).

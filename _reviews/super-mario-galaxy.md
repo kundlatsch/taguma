@@ -25,3 +25,5 @@ Esse é um dilema moral interessante e adequado para o público-alvo do filme. M
 O filme tem seus momentos engraçados, uma dose de ação divertida e um protagonismo feminino que não é tão facilmente encontrado em outras animações. Mas isso não serve sequer para disfarçar a total e absoluta falta de alma desse longa.
 
 E o pior de tudo é que vão sair mais filmes da Nintendo, e a franquia terá infinitas continuações, porque é uma fábrica de fazer dinheiro. No próximo filme, faço mais uma review reclamando.
+
+[Review disponível também no meu Letterboxd](https://letterboxd.com/taguma/film/the-super-mario-galaxy-movie/).
