@@ -6,6 +6,8 @@ year: 2026
 cover: "/assets/images/reviews/mario-galaxy.jpg"
 ---
 
+*Essa review contém spoilers pequenos sobre o filme.*
+
 Lixo corporativo.
 
 O que eu mais escutei quando disse às pessoas que não gostei tanto da primeira quanto da segunda adaptação do bigodudo para as telonas foi que eu estava levando a sério demais um filme para crianças.
