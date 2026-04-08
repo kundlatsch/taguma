@@ -1,179 +1,83 @@
 # taguma
 
+Personal blog and portfolio. Built with [Jekyll](https://jekyllrb.com/).
+
+## Running the project
+
+Install Ruby dependencies once:
+
+```bash
+bundle install
 ```
+
+Start the local development server:
+
+```bash
 bundle exec jekyll serve
 ```
 
----
-
-## Criando posts
-
-### Ateliê (`_atelier/`)
-
-Cada arquivo em `_atelier/` vira uma página em `/atelier/<nome-do-arquivo>/`. O layout é definido pelo campo `layout:` no front matter. Se omitido, usa `artwork` por padrão (definido no `_config.yml`).
-
-#### Campos comuns a todos os tipos
-
-| Campo | Obrigatório | Descrição |
-|---|---|---|
-| `title` | sim | Título do trabalho |
-| `type` | sim | Define a categoria: `pintura`, `musica`, `fotografia`, `literatura` |
-| `date` | não | Data no formato `YYYY-MM-DD` |
-| `medium` | não | Técnica ou formato (ex: "Óleo sobre tela, 30x40cm") |
-| `image` | não | Caminho da imagem — aparece **na listagem e no corpo do post** |
-| `cover` | não | Caminho da imagem — aparece **só na listagem**, nunca no corpo |
-
-> Se tanto `image` quanto `cover` estiverem definidos, a listagem usa `cover` e o corpo do post usa `image`.
+The site will be available at `http://localhost:4000`.
 
 ---
 
-#### Pintura — `layout: painting`
+## Creating new posts
 
-Destaca a imagem da pintura centralizada com efeito de galeria. Clique abre lightbox.
+Use the interactive TUI wizard to create any type of post.
 
-```yaml
----
-layout: painting
-title: "Reprodução: Anjo Caído de Cabanel"
-type: pintura
-medium: "Óleo sobre tela, 30x40cm"
-date: 2025-10-10
-image: /assets/images/atelier/pinturas/cabanel.jpg
----
+**Install the dependency once:**
 
-Texto descritivo da obra.
+```bash
+pip install questionary
 ```
 
----
+**Run the wizard:**
 
-#### Fotografia — `layout: photography`
-
-Exibe as fotos em tira horizontal com scroll. Cada foto abre em lightbox com navegação ←/→ e contador.
-
-```yaml
----
-layout: photography
-title: "Série: Luz de Outubro"
-type: fotografia
-medium: "Fotografia digital"
-date: 2025-10-30
-cover: /assets/images/atelier/fotografias/capa.jpg
-images:
-  - /assets/images/atelier/fotografias/foto1.jpg
-  - /assets/images/atelier/fotografias/foto2.jpg
-  - /assets/images/atelier/fotografias/foto3.jpg
----
-
-Texto descritivo da série.
+```bash
+python3 new_post.py
 ```
 
-> `cover` é usado como thumbnail na listagem. `images` é a lista de fotos da tira — não aparece na listagem.
+The wizard will ask for the post type, fill in the required and optional fields, and open the generated file in your `$EDITOR` (defaults to `nano` if not set).
 
----
+### Post types
 
-#### Música — `layout: music`
+| Type | Directory | URL |
+|------|-----------|-----|
+| `blog` | `_posts/` | `/blog/<slug>/` |
+| `tech` | `_tech/` | `/dev/<slug>/` |
+| `atelier` | `_atelier/` | `/atelier/<slug>/` |
+| `review` | `_reviews/` | `/reviews/<slug>/` |
+| `manual` | `_manual_backend/` | `/backend-manual/<slug>/` |
 
-Layout sem imagem de capa no corpo. O conteúdo do post suporta embeds (YouTube, SoundCloud) que ficam responsivos automaticamente — basta colar o `<iframe>` no corpo do markdown.
+### Atelier sub-types
 
-```yaml
----
-layout: music
-title: "Nome da faixa"
-type: musica
-medium: "Faixa digital, produção eletrônica"
-date: 2025-10-30
-image: /assets/images/atelier/musicas/capa.png
----
+When selecting `atelier`, the wizard asks for a sub-type:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ID" ...></iframe>
+| Sub-type | Layout | Main image fields |
+|----------|--------|-------------------|
+| `pintura` | `painting` | `image` — shown in listing and body |
+| `fotografia` | `photography` | `cover` — listing thumbnail; `images[]` — gallery |
+| `musica` | `music` | `image` — shown in listing only |
+| `literatura` | `writing` | `cover` — listing thumbnail; `image` + `image_caption` — body |
 
-Texto sobre a música.
+### Images
+
+For any field that accepts an image, the wizard will ask for a local file path (with tab-completion). The file is copied automatically to the correct `assets/images/` subdirectory and the Jekyll path is inserted into the frontmatter.
+
+Image asset directories:
+
+```
+assets/images/atelier/pinturas/
+assets/images/atelier/fotografias/
+assets/images/atelier/musicas/
+assets/images/reviews/
 ```
 
-> `image` aparece só na listagem do ateliê. O `<iframe>` no corpo é renderizado responsivo (16:9).
+### Generated file
 
----
+The wizard creates the markdown file with the complete frontmatter and a single placeholder line:
 
-#### Literatura — `layout: writing`
-
-Tipografia serifada, coluna estreita (680px), espaçamento generoso. Ideal para poemas e textos curtos. Suporta imagem decorativa opcional no corpo.
-
-```yaml
----
-layout: writing
-title: "Nome do poema"
-type: literatura
-medium: "Poema"
-date: 2026-03-21
-cover: /assets/images/atelier/pinturas/referencia.jpg   # só na listagem
----
-
-Verso um
-verso dois
-verso três.
-
-Segunda estrofe.
+```
+<!-- Write your content here -->
 ```
 
-Para incluir uma imagem decorativa **no corpo do post** (com legenda opcional):
-
-```yaml
-image: /assets/images/atelier/pinturas/referencia.jpg
-image_caption: "Referência: Anjo Caído, Alexandre Cabanel (1847)"
-```
-
----
-
-### Reviews (`_reviews/`)
-
-Cada arquivo em `_reviews/` vira uma página em `/reviews/<nome-do-arquivo>/`. Usa `layout: review` por padrão.
-
-#### Campos
-
-| Campo | Obrigatório | Descrição |
-|---|---|---|
-| `title` | sim | Título da obra |
-| `type` | sim | Categoria: `filme`, `livro`, `manga`, `anime`, `game` |
-| `rating` | não | Nota de 1 a 5 (exibida em estrelas) |
-| `creator` | não | Diretor, autor, estúdio, etc. |
-| `year` | não | Ano de lançamento |
-| `cover` | não | Imagem de capa (aparece no cabeçalho do post, ao lado do título) |
-
-```yaml
----
-title: "O Agente Secreto"
-type: filme
-rating: 5
-creator: "Kleber Mendonça Filho"
-year: 2025
-cover: /assets/images/reviews/o-agente-secreto.jpg
----
-
-Texto da review.
-```
-
----
-
-### Tech (`_tech/`)
-
-Cada arquivo em `_tech/` vira uma página em `/dev/<nome-do-arquivo>/`. Usa `layout: post` por padrão.
-
-#### Campos
-
-| Campo | Obrigatório | Descrição |
-|---|---|---|
-| `title` | sim | Título do post |
-| `description` | não | Subtítulo ou resumo (aparece na listagem) |
-| `date` | não | Data no formato `YYYY-MM-DD` |
-| `tags` | não | Lista de tags (ex: `[python, tutorial]`) |
-
-```yaml
----
-title: "Criando e publicando um pacote no PyPI"
-description: "Um guia prático para publicar seu primeiro pacote Python."
-date: 2026-02-13
-tags: [python, tutorial]
----
-
-Conteúdo do post em markdown.
-```
+Edit the file to add the actual content after the wizard closes.
